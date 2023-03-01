@@ -1,12 +1,6 @@
-
-<?php 
-
-$sql_details = array(
-	'user' => 'xbase_leet',
-	'pass' => 'xbase_leet',
-	'db'   => 'xbase_leet',
-	'host' => 'localhost'
-);
-
-?>
-
+<?php
+$con  = mysqli_connect('localhost','xbase_leet','xbase_leet','xbase_leet');
+if(mysqli_connect_errno())
+{
+    echo 'Database Connection Error';
+}
