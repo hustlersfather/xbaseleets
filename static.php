@@ -43,7 +43,7 @@ echo'
 
         var options = {
           title: 'Available Tools',  
-          titleTextStyle: {color: '#910606'},
+          titleTextStyle: {color: '#007bff'},
           backgroundColor: 'transparent',
 
           legend: 'right',
@@ -51,7 +51,7 @@ echo'
 
           pieSliceText: 'label',
           pieHole: 0.4,
-          colors:['#910606','#f45b6D','#F45F69','#F46269','#F46369','#F46569','#F46769']
+          colors:['#910606','#dc3545','#F45F69','#ffc107','#28a745','#e1297d','#551a8b#']
 
         };
 
