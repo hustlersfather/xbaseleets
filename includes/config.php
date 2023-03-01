@@ -1,5 +1,4 @@
 
-// SQL server connection information
 <?php 
 
 $sql_details = array(
