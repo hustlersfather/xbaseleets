@@ -1,6 +1,18 @@
 <?php
   ob_start();
   session_start();
+  
+  
+<?php 
+
+$sql_details = array(
+	'user' => 'xbase_leet',
+	'pass' => 'xbase_leet',
+	'db'   => 'xbase_leet',
+	'host' => 'localhost'
+);
+
+?>
   include "includes/config.php";
   include 'encrypt.php';
   date_default_timezone_set('UTC');
