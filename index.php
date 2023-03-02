@@ -1,12 +1,4 @@
 <?php  include "includes/header.php"?>
-        <!-- Search Form -->
-        <li>
-          <form class="search-form" role="search">
-            <div class="md-form mt-0 waves-light">
-              <input type="text" class="form-control py-2" placeholder="Search">
-            </div>
-          </form>
-        </li>
 
         <!-- Side navigation links -->
         <li>
