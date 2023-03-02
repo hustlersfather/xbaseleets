@@ -1,5 +1,15 @@
         </div>
-         <div>
+ 
+  <!-- Footer -->
+  <footer class="page-footer pt-0 mt-5">
+
+    <!-- Copyright -->
+    <div class="footer-copyright py-3 text-center">
+      <div class="container-fluid">
+        © 2022 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      </div>
+    </div>    \<!-- Copyright -->  </footer> <!-- Footer -->
+        <div>
         <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>        
      </div>
 </body>
