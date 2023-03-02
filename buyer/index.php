@@ -20,7 +20,7 @@ $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="seller/vendor/bootstrap/css/bootstrap.min.css">
   <!-- Material Design Bootstrap -->
-  <link rel="stylesheet" href="../../css/mdb.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.20.0/css/mdb.lite.min.css" integrity="sha512-Eu5EEZpsrO6niYlnhT+ITom/YVGoIZGEsbAvZ+gUJsO3Xaq9+hX4vZnbecMn/Cq5KOdmNOdehu/U80111W9xsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Your custom styles (optional) -->
   <style>
 
