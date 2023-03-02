@@ -10,280 +10,909 @@ if (!isset($_SESSION['sname']) and !isset($_SESSION['spass'])) {
 }
 $usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 ?>
-<!doctype html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="files/bootstrap/3/css/bootstrap.css?1" />
-<link rel="stylesheet" type="text/css" href="files/css/flags.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
-<script type="text/javascript" src="files/js/jquery.js?1"></script>
-<script type="text/javascript" src="files/bootstrap/3/js/bootstrap.js?1"></script>
-<script type="text/javascript" src="files/js/sorttable.js"></script>
-<script type="text/javascript" src="files/js/table-head.js?3334"></script>
-<script type="text/javascript" src="files/js/bootbox.min.js"></script>
-<script type="text/javascript" src="files/js/clipboard.min.js"></script>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Material Design Bootstrap</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="seller/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Material Design Bootstrap -->
+  <link rel="stylesheet" href="../../css/mdb.min.css">
+  <!-- Your custom styles (optional) -->
+  <style>
 
-<link rel="shortcut icon" href="files/img/favicon.ico" />
-<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7; IE=EDGE" /> 
- <meta name="referrer" content="no-referrer" />
+  </style>
+<style type="text/css">/* Chart.js */
+@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}</style></head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="utf-8">
-<title>JeruxShop</title>
-</head>
-<style>
-#table {
-  .sortable
-}
-table th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
-    content: " \25BE" 
-}
+<body class="fixed-sn white-skin">
 
-.label-as-badge {
-    border-radius: 0.5em;
-}
+  <!-- Main Navigation -->
+  <header>
 
-body {
-    padding-top:50px;
-}
-table.floatThead-table {
-    border-top: none;
-    border-bottom: none;
-    background-color: #fff;
-}
-@media (min-width: 768px) {
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-}
+    <!-- Sidebar navigation -->
+    <div id="slide-out" class="side-nav sn-bg-4 fixed" style="transform: translateX(-100%);">
+      <ul class="custom-scrollbar ps ps--active-x ps--active-y">
 
-#mydiv {
-  height: 400px;
-  position: relative;
-}
-.ajax-loader {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto; /* presto! */
-
-}
-
-   
-    
-
-</style>
-<script type="text/javascript">
-             function ajaxinfo() {
-                $.ajax({
-                    type: 'GET',
-                    url: 'ajaxinfo.html',
-                    timeout: 10000,
-
-                    success: function(data) {
-                        if (data != '01') {
-                            var data = JSON.parse(data);
-                            for (var prop in data) {
-                                $("#" + prop).html(data[prop]).show();
-                            }
-                        } else {
-                            window.location = "logout.html";
-                        }
-                    }
-                });
-
-            }
-            setInterval(function() {
-                ajaxinfo()
-            }, 3000);
-
-            ajaxinfo();
-
-$(document).keydown(function(event){
-    if(event.which=="17")
-        cntrlIsPressed = true;
-});
-
-$(document).keyup(function(){
-    cntrlIsPressed = false;
-});
-
-var cntrlIsPressed = false;
-
-
-function pageDiv(n,t,u,x){
-  if(cntrlIsPressed){
-    window.open(u, '_blank');
-    return false;
-  }
-        var obj = { Title: t, Url: u };
-        if ( ("/"+obj.Url) != location.pathname) {
-        	if (x != 1) {history.pushState(obj, obj.Title, obj.Url);}
-        	else{history.replaceState(obj, obj.Title, obj.Url);}
-
-    	}
-      document.title = obj.Title;
-    $("#mainDiv").html('<div id="mydiv"><img src="files/img/load2.gif" class="ajax-loader"></div>').show();
-    $.ajax({
-    type:       'GET',
-    url:        'divPage'+n+'.html',
-    success:    function(data)
-    {
-        $("#mainDiv").html(data).show();
-        newTableObject = document.getElementById('table');
-        sorttable.makeSortable(newTableObject);
-        $(".sticky-header").floatThead({top:60});
-        if(x==0){ajaxinfo();}
-      }});
-    if (typeof stopCheckBTC === 'function') { 
-    var a = stopCheckBTC();
-     }
-
-}
-
-$(window).on("popstate", function(e) {
-        location.replace(document.location);
-
-});
-
-
-$(window).on('load', function() {
-$('.dropdown').hover(function(){ $('.dropdown-toggle', this).trigger('click'); });
-   pageDiv(0,'Main - JeruxShop','index.html',1);
-   var clipboard = new Clipboard('.copyit');
-    clipboard.on('success', function(e) {
-      setTooltip(e.trigger, 'Copied!');
-      hideTooltip(e.trigger);
-      e.clearSelection();
-   });
-
-});
-
-
-function setTooltip(btn, message) {
-  console.log("hide-1");
-  $(btn).tooltip('hide')
-    .attr('data-original-title', message)
-    .tooltip('show');
-     console.log("show");
-}
-
-function hideTooltip(btn) {
-  setTimeout(function() {$(btn).tooltip('hide'); console.log("hide-2");}, 1000);
-}
-</script>
-		<style>
-            .navbar {
-                background-color: #001f3f;
-            }
-        </style>
-<body style="padding-top: 70px; padding-bottom: 70px;">
-
-<nav class="navbar navbar-default navbar-fixed-top ">
-  <div class="container-fluid">
-    <div class="navbar-header">
-       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-    <div class="navbar-brand" onClick="location.href='index.html'" onMouseOver="this.style.cursor='pointer'"><b><span class="glyphicon glyphicon-fire"></span> Jerux SHOP <small><span class="glyphicon glyphicon-refresh"></span></small></b></div></div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="topFixedNavbar1">
-      <ul class="nav navbar-nav">
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Hosts <span class="glyphicon glyphicon-chevron-down" id="alhosts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="rdp.html" onclick="pageDiv(1,'RDP - JeruxShop','rdp.html',0); return false;">RDPs <span class="label label-primary label-as-badge" id="rdp"></span></a></li>
-            <li><a href="cPanel.html" onclick="pageDiv(2,'cPanel - JeruxShop','cPanel.html',0); return false;">cPanels <span class="label label-primary label-as-badge" id="cpanel"></span></a></li>
-            <li><a href="shell.html" onclick="pageDiv(3,'Shell - JeruxShop','shell.html',0); return false;">Shells <span class="label label-primary label-as-badge" id="shell"></span></a></li>  
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Send <span class="glyphicon glyphicon-chevron-down" id="mail"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="mailer.html" onclick="pageDiv(4,'PHP Mailer - JeruxShop','mailer.html',0); return false;">Mailers <span class="label label-primary label-as-badge" id="mailer"></span></a></li>
-            <li><a href="smtp.html" onclick="pageDiv(5,'SMTP - JeruxShop','smtp.html',0); return false;">SMTPs <span class="label label-primary label-as-badge" id="smtp"></span></a></li>  
-          </ul>
-        </li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Leads <span class="glyphicon glyphicon-chevron-down" id="all_leads"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="leads.html" onclick="pageDiv(6,'Leads - JeruxShop','leads.html',0); return false;">Leads <span class="label label-primary label-as-badge" id="leads"></span></a></li>
-          </ul>
-        </li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Accounts <span class="glyphicon glyphicon-chevron-down" id="accounts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="premium.html" onclick="pageDiv(7,'Premium/Dating/Shop - JeruxShop','premium.html',0); return false;">Premium/Dating/Shop <span class="label label-primary label-as-badge" id="premium"></span></a></li>
-            <li><a href="banks.html" onclick="pageDiv(8,'Banks - JeruxShop','banks.html',0); return false;">Banks <span class="label label-primary label-as-badge" id="banks"></span></a></li>  
-          </ul>
-        </li>
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Others <span class="glyphicon glyphicon-chevron-down" id="accounts"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="scampage.html" onclick="pageDiv(9,'Scampages - JeruxShop','scampage.html',0); return false;">Scampage <span class="label label-primary label-as-badge" id="scams"></span></a></li>
-            <li><a href="tutorial.html" onclick="pageDiv(10,'Tutorials - JeruxShop','tutorial.html',0); return false;">Tutorial <span class="label label-primary label-as-badge" id="tutorials"></span></a></li>  
-          </ul>
-        </li>
-                      
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-                        <?php
-$uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-$q = mysqli_query($dbcon, "SELECT resseller FROM users WHERE username='$uid'") or die(mysqli_error());
-$r         = mysqli_fetch_assoc($q);
-$reselerif = $r['resseller'];
-if ($reselerif == "1") {
-    $uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-    $q = mysqli_query($dbcon, "SELECT soldb FROM resseller WHERE username='$uid'") or die(mysqli_error());
-    $r = mysqli_fetch_assoc($q);
-
-    echo '<li><a href="https://jerux.to/seller/index.html"><span class="badge" title="Seller Panel"><span class="glyphicon glyphicon-cloud"></span><span id="seller"></span></span></a></li>';
-} else {
-} ?>      
-<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Tickets <span id="alltickets">
-<?php
-$sze112  = mysqli_query($dbcon, "SELECT * FROM ticket WHERE uid='$uid' and seen='1'");
-$r844941 = mysqli_num_rows($sze112);
-if ($r844941 == "1") {
-    echo '<span class="label label-danger">1</span>';
-}
-?>
-</span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="tickets.html" onclick="pageDiv(11,'Tickets - JeruxShop','tickets.html',0); return false;">Tickets <span class="label label-info"><span id="tickets"></span></span>	<?php
-$s1 = mysqli_query($dbcon, "SELECT * FROM ticket WHERE uid='$uid' and seen='1'");
-$r1 = mysqli_num_rows($s1);
-if ($r1 == "1") {
-    echo '<span class="label label-success"> 1 New</span>';
-}
-?></span></a></li>
-            <li><a href="reports.html" onclick="pageDiv(12,'Reports - JeruxShop','reports.html',0); return false;">Reports <span class="label label-info"><span id="reports"></span></span> <?php
-$s1 = mysqli_query($dbcon, "SELECT * FROM reports WHERE uid='$uid' and seen='1'");
-$r1 = mysqli_num_rows($s1);
-if ($r1 == "1") {
-    echo '<span class="label label-success"> 1 New</span>';
-}
-?></span> </a></li>
-
-           </ul>
+        <!-- Logo -->
+        <li class="logo-sn waves-effect py-3">
+          <div class="text-center">
+            <a href="#" class="pl-0"><img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"></a>
+          </div>
         </li>
 
-        <li><a href="addBalance.html" onclick="pageDiv(13,'Add Balance - JeruxShop','addBalance.html',0); return false;"><span class="badge"><b><span id="balance"></span></b> <span class="glyphicon glyphicon-plus"></span><span> </a></li>
-        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account  <span class="glyphicon glyphicon-user"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="setting.html" onclick="pageDiv(14,'Setting - JeruxShop','setting.html',0); return false;">Setting <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
-            <li><a href="orders.html" onclick="pageDiv(15,'Orders - JeruxShop','orders.html',0); return false;">My Orders <span class="glyphicon glyphicon-shopping-cart pull-right"></span></a></li>
-            <li><a href="addBalance.html" onclick="pageDiv(13,'Add Balance - JeruxShop','addBalance.html',0); return false;">Add Balance <span class="glyphicon glyphicon-usd pull-right"></span></a></li>
+        <!-- Search Form -->
+        <li>
+          <form class="search-form" role="search">
+            <div class="md-form mt-0 waves-light waves-effect waves-light">
+              <input type="text" class="form-control py-2" placeholder="Search">
+            </div>
+          </form>
+        </li>
+        
+        <!-- Side navigation links -->
+        <li>
+          <ul class="collapsible collapsible-accordion">
+
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-tachometer-alt"></i>Dashboards<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../dashboards/v-1.html" class="waves-effect">Version 1</a>
+                  </li>
+                  <li>
+                    <a href="../dashboards/v-2.html" class="waves-effect">Version 2</a>
+                  </li>
+                  <li>
+                    <a href="../dashboards/v-3.html" class="waves-effect">Version 3</a>
+                  </li>
+                  <li>
+                    <a href="../dashboards/v-4.html" class="waves-effect">Version 4</a>
+                  </li>
+                  <li>
+                    <a href="../dashboards/v-5.html" class="waves-effect">Version 5</a>
+                  </li>
+                  <li>
+                    <a href="../dashboards/v-6.html" class="waves-effect">Version 6</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-image"></i>Pages<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../pages/login.html" class="waves-effect">Login</a>
+                  </li>
+                  <li>
+                    <a href="../pages/register.html" class="waves-effect">Register</a>
+                  </li>
+                  <li>
+                    <a href="../pages/pricing.html" class="waves-effect">Pricing</a>
+                  </li>
+                  <li>
+                    <a href="../pages/about.html" class="waves-effect">About us</a>
+                  </li>
+                  <li>
+                    <a href="../pages/single.html" class="waves-effect">Single post</a>
+                  </li>
+                  <li>
+                    <a href="../pages/post.html" class="waves-effect">Post listing</a>
+                  </li>
+                  <li>
+                    <a href="../pages/landing.html" class="waves-effect">Landing page</a>
+                  </li>
+                  <li>
+                    <a href="../pages/customers.html" class="waves-effect">Customers</a>
+                  </li>
+                  <li>
+                    <a href="../pages/invoice.html" class="waves-effect">Invoice</a>
+                  </li>
+                  <li>
+                    <a href="../pages/page-creator.html" class="waves-effect">Page Creator</a>
+                  </li>
+                  <li>
+                    <a href="../pages/support.html" class="waves-effect">Support</a>
+                  </li>
+                  <li>
+                    <a href="../pages/chat.html" class="waves-effect">Chat</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-user"></i>Profile<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../profile/basic-1.html" class="waves-effect">Basic 1</a>
+                  </li>
+                  <li>
+                    <a href="../profile/basic-2.html" class="waves-effect">Basic 2</a>
+                  </li>
+                  <li>
+                    <a href="../profile/extended.html" class="waves-effect">Extended</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fab fa-css3"></i>CSS<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../css/grid.html" class="waves-effect">Grid system</a>
+                  </li>
+                  <li>
+                    <a href="../css/media.html" class="waves-effect">Media object</a>
+                  </li>
+                  <li>
+                    <a href="../css/utilities.html" class="waves-effect">Utilities / helpers</a>
+                  </li>
+                  <li>
+                    <a href="../css/code.html" class="waves-effect">Code</a>
+                  </li>
+                  <li>
+                    <a href="../css/icons.html" class="waves-effect">Icons</a>
+                  </li>
+                  <li>
+                    <a href="../css/images.html" class="waves-effect">Images</a>
+                  </li>
+                  <li>
+                    <a href="../css/typography.html" class="waves-effect">Typography</a>
+                  </li>
+                  <li>
+                    <a href="../css/animations.html" class="waves-effect">Animations</a>
+                  </li>
+                  <li>
+                    <a href="../css/colors.html" class="waves-effect">Colors</a>
+                  </li>
+                  <li>
+                    <a href="../css/hover.html" class="waves-effect">Hover effects</a>
+                  </li>
+                  <li>
+                    <a href="../css/masks.html" class="waves-effect">Masks</a>
+                  </li>
+                  <li>
+                    <a href="../css/shadows.html" class="waves-effect">Shadows</a>
+                  </li>
+                  <li>
+                    <a href="../css/skins.html" class="waves-effect">Skins</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-th"></i>Components<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../components/buttons.html" class="waves-effect">Buttons</a>
+                  </li>
+                  <li>
+                    <a href="../components/cards.html" class="waves-effect">Cards</a>
+                  </li>
+                  <li>
+                    <a href="../components/collapse.html" class="waves-effect">Collapse</a>
+                  </li>
+                  <li>
+                    <a href="../components/date.html" class="waves-effect">Date picker</a>
+                  </li>
+                  <li>
+                    <a href="../components/list.html" class="waves-effect">List group</a>
+                  </li>
+                  <li>
+                    <a href="../components/panels.html" class="waves-effect">Panels</a>
+                  </li>
+                  <li>
+                    <a href="../components/pagination.html" class="waves-effect">Pagination</a>
+                  </li>
+                  <li>
+                    <a href="../components/popovers.html" class="waves-effect">Popovers</a>
+                  </li>
+                  <li>
+                    <a href="../components/progress.html" class="waves-effect">Progress bars</a>
+                  </li>
+                  <li>
+                    <a href="../components/stepper.html" class="waves-effect">Stepper</a>
+                  </li>
+                  <li>
+                    <a href="../components/tabs.html" class="waves-effect">Tabs &amp; pills</a>
+                  </li>
+                  <li>
+                    <a href="../components/tags.html" class="waves-effect">Tags, labels &amp; badges</a>
+                  </li>
+                  <li>
+                    <a href="../components/time.html" class="waves-effect">Time picker</a>
+                  </li>
+                  <li>
+                    <a href="../components/tooltips.html" class="waves-effect">Tooltips</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa far fa-check-square"></i>Forms<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../forms/basic.html" class="waves-effect">Basic</a>
+                  </li>
+                  <li>
+                    <a href="../forms/extended.html" class="waves-effect">Extended</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-table"></i>Tables<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../tables/basic.html" class="waves-effect">Basic</a>
+                  </li>
+                  <li>
+                    <a href="../tables/extended.html" class="waves-effect">Extended</a>
+                  </li>
+                  <li>
+                    <a href="../tables/datatables.html" class="waves-effect">DataTables.net</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="collapsible-header waves-effect arrow-r">
+                <i class="w-fa fas fa-map"></i>Maps<i class="fas fa-angle-down rotate-icon"></i>
+              </a>
+              <div class="collapsible-body">
+                <ul>
+                  <li>
+                    <a href="../maps/google.html" class="waves-effect">Google Maps</a>
+                  </li>
+                  <li>
+                    <a href="../maps/full.html" class="waves-effect">Full screen map</a>
+                  </li>
+                  <li>
+                    <a href="../maps/vector.html" class="waves-effect">Vector world map</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
             
-            <li class="divider"></li>
-            <li><a href="logout.html" >Logout <span class="glyphicon glyphicon-off pull-right"></span></a></li>
+            <!-- Simple link -->
+            <li>
+              <a href="../alerts/alerts.html" class="collapsible-header waves-effect"><i class="w-fa far fa-bell"></i>Alerts</a>
+            </li>
+            <li>
+              <a href="../modals/modals.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-bolt"></i>Modals</a>
+            </li>
+            <li>
+              <a href="../charts/charts.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-chart-pie"></i>Charts</a>
+            </li>
+            <li>
+              <a href="../calendar/calendar.html" class="collapsible-header waves-effect"><i class="w-fa far fa-calendar-check"></i>Calendar</a>
+            </li>
+            <li>
+              <a href="../sections/sections.html" class="collapsible-header waves-effect"><i class="w-fa fas fa-th-large"></i>Sections</a>
+            </li>
+
           </ul>
         </li>
-      </ul>
+        <!-- Side navigation links -->
+
+      <div class="ps__rail-x" style="width: 240px; left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 213px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 255px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 104px;"></div></div></ul>
+      <div class="sidenav-bg mask-strong"></div>
     </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container-fluid -->
-</nav>
-<div id="mainDiv">
+    <!-- Sidebar navigation -->
+
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg scrolling-navbar double-nav">
+
+      <!-- SideNav slide-out button -->
+      <div class="float-left">
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-dn mr-auto">
+        <p>Grid</p>
+      </div>
+
+      <!-- Navbar links -->
+      <ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown notifications-nav">
+          <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="badge red">3</span> <i class="fas fa-bell"></i>
+            <span class="d-none d-md-inline-block">Notifications</span>
+          </a>
+          <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item waves-effect waves-light" href="#">
+              <i class="far fa-money-bill-alt mr-2" aria-hidden="true"></i>
+              <span>New order received</span>
+              <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 13 min</span>
+            </a>
+            <a class="dropdown-item waves-effect waves-light" href="#">
+              <i class="far fa-money-bill-alt mr-2" aria-hidden="true"></i>
+              <span>New order received</span>
+              <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 33 min</span>
+            </a>
+            <a class="dropdown-item waves-effect waves-light" href="#">
+              <i class="fas fa-chart-line mr-2" aria-hidden="true"></i>
+              <span>Your campaign is about to end</span>
+              <span class="float-right"><i class="far fa-clock" aria-hidden="true"></i> 53 min</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect"><i class="fas fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect"><i class="far fa-comments"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Profile</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item waves-effect waves-light" href="#">Log Out</a>
+            <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+          </div>
+        </li>
+
+      </ul>
+      <!-- Navbar links -->
+
+    </nav>
+    <!-- Navbar -->
+
+  </header>
+  <!-- Main Navigation -->
+
+  <!-- Main layout -->
+  <main>
+
+    <div class="container-fluid">
+
+      <h2 class="my-5 font-weight-bold">Grid system</h2>
+
+      <!-- Section: Five grid tiers -->
+      <section class="mb-5">
+
+        <h4 class="mb-5 dark-grey-text font-weight-bold">Five grid tiers</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-sm-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-sm-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-sm-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-lg-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-lg-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-lg-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-lg-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-xl-4 mb-xl-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-xl-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-xl-4 mb-xl-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-xl-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-xl-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-xl-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+        </div>
+
+      </section>
+      <!-- Section: Five grid tiers -->
+
+      <!-- Section: Three equal columns -->
+      <section class="mb-5">
+
+        <h4 class="mb-5 pt-4 dark-grey-text font-weight-bold">Three equal columns</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-4 mb-md-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4 mb-md-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+      </section>
+      <!-- Section: Three equal columns -->
+
+      <!-- Section: Two columns -->
+      <section class="mb-5">
+
+        <h4 class="mb-5 pt-4 dark-grey-text font-weight-bold">Two columns</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-8 mb-md-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-8</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+      </section>
+      <!-- Section: Two columns -->
+
+      <!-- Section: Mixed: mobile and desktop -->
+      <section class="mb-5">
+
+        <h4 class="mb-5 pt-4 dark-grey-text font-weight-bold">Mixed: mobile and desktop</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-12 col-md-8 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-12 .col-md-8</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-6 col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-md-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-md-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-6">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-md-6</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+      </section>
+      <!-- Section: Mixed: mobile and desktop -->
+
+      <!-- Section: Mixed: mobile, tablet, and desktop -->
+      <section class="mb-5">
+
+        <h4 class="mb-5 pt-4 dark-grey-text font-weight-bold">Mixed: mobile, tablet, and desktop</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-12 col-sm-6 col-lg-8 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-0">.col-12 .col-sm-6 .col-lg-8</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-lg-4 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-lg-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4 mb-md-0 mb-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6. col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-6 col-sm-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class=" mb-0">.col-6 .col-sm-4</p>
+              </div>
+            </div>
+          </div>
+          <!-- Grid column -->
+
+        </div>
+
+      </section>
+      <!-- Section: Mixed: mobile, tablet, and desktop -->
+
+      <!-- Section: Two columns with two nested columns -->
+      <section class="mb-5 pb-3">
+
+        <h4 class="mb-5 pt-4 dark-grey-text font-weight-bold">Two columns with two nested columns</h4>
+
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-8 mb-md-0 mb-4">
+
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="mb-4 mt-2">.col-md-8</p>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="card grey lighten-2 text-center z-depth-2">
+                      <div class="card-body">
+                        <p class="mb-0">.col-md-6</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="card grey lighten-2 text-center z-depth-2">
+                      <div class="card-body">
+                        <p class="mb-0">.col-md-6</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          <!-- Grid column -->
+          <div class="col-md-4">
+            <div class="card white text-center z-depth-2">
+              <div class="card-body">
+                <p class="my-5">.col-md-4</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+      <!-- Section: Two columns with two nested columns -->
+
+      <!-- Section: Docs link -->
+      <section>
+
+        <!-- Panel -->
+        <div class="card text-center">
+          <h3 class="card-header primary-color white-text">Full documentation</h3>
+          <div class="card-body">
+            <p class="card-text">Read the full documentation for these components.</p>
+            <a href="https://mdbootstrap.com/docs/jquery/layout/grid-usage/" target="_blank" class="btn btn-primary waves-effect waves-light">Learn
+              more</a>
+          </div>
+        </div>
+
+      </section>
+      <!-- Section: Docs link -->
+
+    </div>
+
+  </main>
+  <!-- Main layout -->
+
+  <!-- Footer -->
+  <footer class="page-footer pt-0 mt-5 rgba-stylish-light">
+
+    <!-- Copyright -->
+    <div class="footer-copyright py-3 text-center">
+      <div class="container-fluid">
+        © 2019 Copyright: <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      </div>
+    </div>
+
+  </footer>
+  <!-- Footer -->
+
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script src="files/js/jquery-3.4.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="files/js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="files/bootstrap/3/js/bootstrap.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="files/js/mdb.min.js"></script><div class="hiddendiv common"></div>
+
+  <!-- Custom scripts -->
+  <script>
+    
+    // SideNav Initialization
+    $(".button-collapse").sideNav();
+
+    var container = document.querySelector('.custom-scrollbar');
+    var ps = new PerfectScrollbar(container, {
+      wheelSpeed: 2,
+      wheelPropagation: true,
+      minScrollbarLength: 20
+    });
+
+  </script><div class="drag-target" style="left: 0px;"></div>
 
 
-</div>
-</body>
-</html>
 
+
+</body></html>
