@@ -1,5 +1,4 @@
-
-
+<?php  include includes/footer.php"?>
         <!-- Search Form -->
         <li>
           <form class="search-form" role="search">
