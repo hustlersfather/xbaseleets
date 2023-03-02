@@ -8,12 +8,8 @@ if (!isset($_SESSION['sname']) and !isset($_SESSION['spass'])) {
     header("location: login.html");
     exit();
 }
-$usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-?>
+$usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);?>
 <?php include('includes/header.php'); ?>
-
-
-
 
 
 <script type="text/javascript">
